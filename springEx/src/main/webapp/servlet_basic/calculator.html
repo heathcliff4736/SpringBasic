@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>calculator</title>
+    <script>
+        function calculate() {
+            let calc = document.calc;
+            let radio = calc.op.value;
+
+            if((radio === 'div') && (calc.y.value === '0')){
+                alert('0으로 나눌 수 없습니다.');
+            } else {
+                calc.method = 'get';
+                calc.action = 'calc';
+                calc.submit();
+            }
+        }
+    </script>
+</head>
+<body>
+<form name="calc" method="get" enctype="UTF-8">
+    <p>x : <input type="number" name="x" value="1" /></p>
+    <p>y : <input type="number" name="y" value="1" /></p>
+    <input type="radio" name="op" value="add" />add <br />
+    <input type="radio" name="op" value="sub" />sub <br />
+    <input type="radio" name="op" value="mul" />mul <br />
+    <input type="radio" name="op" value="div" />div <br />
+    <input type="submit" value="전송" onclick="calculate(); return false;" />
+</form>
+</body>
+</html>

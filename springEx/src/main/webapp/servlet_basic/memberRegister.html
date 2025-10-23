@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>회원가입</title>
+    <script type="text/javascript">
+        function fn_validate() {
+            let frmLogin = document.frmLogin;
+            let user_id = frmLogin.user_id.value;
+            let user_pwd = frmLogin.user_pwd.value;
+            let user_pwd2 = frmLogin.user_pwd2.value;
+
+            if (
+                user_id.length === 0 ||
+                user_id == '' ||
+                user_pwd.length === 0 ||
+                user_pwd == ''
+            ) {
+                alert('아이디와 비밀번호 입력은 필수입니다.');
+            } else if (user_pwd != user_pwd2) {
+                alert('비밀번호가 동일하게 입력되지 않았습니다.');
+            } else {
+                frmLogin.submit();
+            }
+
+        }
+    </script>
+</head>
+<body>
+<h1>회원가입</h1>
+<p>아이디, 비밀번호, 성별, 취미를 입력해 주세요.</p>
+<hr />
+<form name="frmLogin" action="/servlet_assignment/memberRegisterCheck" method="post">
+    <h4>아이디</h4>
+    <input type="text" name="user_id" placeholder="예: yumi_123" /><br />
+    <p>영문, 숫자, 밑줄(_)만 사용 가능, 3~20자.</p>
+    <h4>비밀번호</h4>
+    <input type="password" name="user_pwd" placeholder="비밀번호 입력" /><br />
+    <p>6자 이상을 권장합니다.</p>
+    <h4>비밀번호 확인</h4>
+    <input type="password" name="user_pwd2" placeholder="비밀번호 재입력" /><br />
+    <p>비밀번호를 다시 입력하세요.</p>
+    <fieldset>
+        <legend>성별</legend>
+        <label >남성</label>
+        <input type="radio" name="user_gender" value="male" />
+        <label >여성</label>
+        <input type="radio" name="user_gender" value="female" />
+    </fieldset>
+    <fieldset>
+        <legend>취미 (복수 선택 가능)</legend>
+        <input type="checkbox" name="user_hobby" value="reading" > 독서</input>
+        <input type="checkbox" name="user_hobby" value="skinScuba" > 스킨스쿠버</input>
+        <br>
+        <input type="checkbox" name="user_hobby" value="swimming" > 수영</input>
+        <input type="checkbox" name="user_hobby" value="cycling" > 자전거</input>
+        <br>
+        <input type="checkbox" name="user_hobby" value="running" > 러닝</input>
+
+    </fieldset>
+    <p>선택 사항입니다.</p>
+
+    <input
+            type="button"
+            onClick="fn_validate()"
+            value="가입하기"
+    />&nbsp&nbsp<input type="reset" value="다시 입력" />
+</form>
+</body>
+</html>
