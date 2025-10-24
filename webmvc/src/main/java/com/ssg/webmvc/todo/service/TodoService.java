@@ -42,6 +42,7 @@ public enum TodoService {
     }
 
     // 10개의 TodoDTO 객체를 만들어 반환
+    /*
     public List<TodoDTO> getList() {
         List<TodoDTO> todoDTOS = IntStream.range(0, 10).mapToObj(
                 i -> {
@@ -54,6 +55,7 @@ public enum TodoService {
         ).collect(Collectors.toList());
         return todoDTOS;
     }
+    */
 
     public TodoDTO get(Long tno) {
         TodoDTO dto = new TodoDTO();
@@ -62,6 +64,18 @@ public enum TodoService {
         dto.setDueDate(LocalDate.now());
         dto.setFinished(true);
         return dto;
+    }
+
+
+    public List<TodoDTO> listAll() throws Exception {
+        List<TodoVO> todoVOList = dao.selectAll();
+        log.info("voList---------------------------");
+        log.info(todoVOList);
+
+        List<TodoDTO> todoDTOList = todoVOList.stream().map(
+                todoVO -> modelMapper.map(todoVO, TodoDTO.class)).collect(Collectors.toList());
+
+        return todoDTOList;
     }
 
 }
