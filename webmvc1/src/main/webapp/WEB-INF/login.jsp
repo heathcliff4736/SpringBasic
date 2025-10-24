@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ehs
@@ -11,6 +12,10 @@
     <title>로그인</title>
 </head>
 <body>
+<c:if test="${param.result == 'error'}">
+    <h2>로그인 에러</h2>
+</c:if>
+
 <form action="/login" method="post">
     <input type="text" name="mid"></input>
     <input type="text" name="mpw"></input>

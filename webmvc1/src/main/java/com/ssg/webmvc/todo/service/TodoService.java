@@ -22,12 +22,12 @@ import java.util.stream.IntStream;
 public enum TodoService {
     INSTANCE;
 
-    private TodoDAO dao;
+    private TodoDAO todoDAO;
     private ModelMapper modelMapper;
 
 
     TodoService() {
-        this.dao = new TodoDAO();
+        this.todoDAO = new TodoDAO();
         this.modelMapper = MapperUtil.INSTANCE.get();
     }
 
@@ -35,9 +35,9 @@ public enum TodoService {
         TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
         //System.out.println("todoVO :" + todoVO);
         log.info(todoVO);
-        dao.insert(todoVO);
+        todoDAO.insert(todoVO);
         // register() TodoDTO 파라미터를 받아서 ModelMapper를통해 TodoVO객체로 변환을 한후
-        //dao.insert(todoVO) 를 통해 todoVO 객체를 전달하며 등록기능을 요청한다.
+        //todoDAO.insert(todoVO) 를 통해 todoVO 객체를 전달하며 등록기능을 요청한다.
     }
 
 //    //10개의 TodoDTO 객체를 만들어 반환
@@ -64,7 +64,7 @@ public enum TodoService {
     }
 
     public List<TodoDTO> listAll() throws Exception {
-        List<TodoVO> voList = dao.selectAll();
+        List<TodoVO> voList = todoDAO.selectAll();
         log.info("voList-------------");
         log.info(voList);
 
@@ -77,7 +77,7 @@ public enum TodoService {
     public void remove(Long tno)throws Exception {
 
         log.info("tno: " + tno);
-        dao.deleteOne(tno);
+        todoDAO.deleteOne(tno);
     }
 
     public void modify(TodoDTO todoDTO)throws Exception {
@@ -86,7 +86,7 @@ public enum TodoService {
 
         TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
 
-        dao.updateOne(todoVO);
+        todoDAO.updateOne(todoVO);
 
     }
 
