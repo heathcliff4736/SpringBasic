@@ -27,7 +27,7 @@ public class TodoRegisterController extends HttpServlet {
         // 로그인한 사용자만이 Todo를 등록할 수 있도록 재구성
         log.info("/todo/register GET .......");
 
-        HttpSession session = req.getSession();
+        /*HttpSession session = req.getSession();
         if (session.isNew()) {
             log.info("JSESSIONID가 없는 새로 요청한 사용자");
             resp.sendRedirect("/login");
@@ -38,7 +38,7 @@ public class TodoRegisterController extends HttpServlet {
             log.info("로그인한 정보가 없는 사용자");
             resp.sendRedirect("/login");
             return;
-        }
+        }*/
 
         req.getRequestDispatcher("/WEB-INF/todo/register.jsp").forward(req, resp);
     }
