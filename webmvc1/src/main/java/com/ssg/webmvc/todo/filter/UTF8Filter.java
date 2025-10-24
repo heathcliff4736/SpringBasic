@@ -17,7 +17,9 @@ public class UTF8Filter implements Filter {
         log.info("doFilter..UTF-8......");
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+        request.setCharacterEncoding("UTF-8");
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+        response.setContentType("text/html; charset=UTF-8");
 
         filterChain.doFilter(request, response);
     }

@@ -109,7 +109,9 @@
     </c:forEach>
     </tbody>
 </table>
-
 <button><a href="/todo/register">REGISTER</a></button>
+<form action="/logout" method="post">
+    <button>LOGOUT</button>
+</form>
 </body>
 </html>
