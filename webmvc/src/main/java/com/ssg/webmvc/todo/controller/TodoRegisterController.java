@@ -1,5 +1,10 @@
 package com.ssg.webmvc.todo.controller;
 
+import com.ssg.webmvc.todo.dto.TodoDTO;
+import com.ssg.webmvc.todo.service.TodoService;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.format.datetime.DateFormatter;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,20 +12,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
+@Log4j2
 @WebServlet(name = "todoRegisterController", urlPatterns = "/todo/register")
 public class TodoRegisterController extends HttpServlet {
 
+    private TodoService todoService = TodoService.INSTANCE;
+    private final DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("입력화면을 볼 수 있도록 구성");
+//        System.out.println("입력화면을 볼 수 있도록 구성");
+        log.info("TodoRegisterController, doGet---------------------");
         RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/todo/register.jsp");
         dispatcher.forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("입력을 처리하고 목록 페이지로 이동");
+//        System.out.println("입력을 처리하고 목록 페이지로 이동");
+
+        TodoDTO todoDTO = TodoDTO.builder()
+                .title(req.getParameter("title"))
+                .dueDate(LocalDate.parse(req.getParameter("dueDate"),DATEFORMATTER ))
+                .build();
+        log.info("TodoRegisterController, doPost---------------------");
+        log.info(todoDTO);
+
+        try{
+            todoService.register(todoDTO);
+        } catch ( Exception e ) {
+            e.printStackTrace();
+        }
 
         resp.sendRedirect("/todo/list");
     }

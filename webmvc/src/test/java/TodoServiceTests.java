@@ -23,4 +23,25 @@ public class TodoServiceTests {
         todoService.register(todoDTO);
     }
 
+    @Test
+    public void testSelectOne() throws Exception {
+        todoService.selectOne(1L);
+    }
+
+    @Test
+    public void testDeleteOne() throws Exception {
+        todoService.deleteOne(4L);
+    }
+
+    @Test
+    public void testUpdateOne() throws Exception {
+        TodoDTO todoDTO = TodoDTO.builder()
+                .tno(5L)
+                .title("updated DTO title 2 on Service")
+                .dueDate(LocalDate.now())
+                .finished(true)
+                .build();
+        todoService.updateOne(todoDTO);
+    }
+
 }

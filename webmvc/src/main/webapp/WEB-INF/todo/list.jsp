@@ -16,12 +16,10 @@
 
 <ul>
     <c:forEach var="dto" items="${dtoList}">
-        <li>${dto.tno} ${dto.title} ${dto.dueDate} ${dto.finished}</li>
+        <li><a href="/todo/read?tno=${dto.tno}">${dto.tno} ${dto.title} ${dto.dueDate} ${dto.finished}</a></li>
 <%--        <li>${dto}</li>--%>
     </c:forEach>
 </ul>
-
-
 </body>
 </html>
 

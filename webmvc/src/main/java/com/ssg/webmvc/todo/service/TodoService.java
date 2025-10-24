@@ -24,11 +24,11 @@ public enum TodoService {
     INSTANCE;
 
     // 인젝션 의존성 주입 (DI)
-    private TodoDAO dao;
+    private TodoDAO todoDAO;
     private ModelMapper modelMapper;
 
     TodoService() {
-        this.dao = new TodoDAO();
+        this.todoDAO = new TodoDAO();
         this.modelMapper = MapperUtil.INSTANCE.get();
     }
 
@@ -36,7 +36,7 @@ public enum TodoService {
         TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
 //        System.out.println("todo VO :" + todoVO);
         log.info(todoVO);
-        dao.insert(todoVO);
+        todoDAO.insert(todoVO);
         // register() TodoDTO 파라미터를 받고, ModelMapper를 통해서 TodoVO 객체로 변환을 한 후
         // dao.insert(todoVO)를 통해 TodoVO를 객체를 전달하며 등록기능을 요청.
     }
@@ -68,7 +68,7 @@ public enum TodoService {
 
 
     public List<TodoDTO> listAll() throws Exception {
-        List<TodoVO> todoVOList = dao.selectAll();
+        List<TodoVO> todoVOList = todoDAO.selectAll();
         log.info("voList---------------------------");
         log.info(todoVOList);
 
@@ -76,6 +76,27 @@ public enum TodoService {
                 todoVO -> modelMapper.map(todoVO, TodoDTO.class)).collect(Collectors.toList());
 
         return todoDTOList;
+    }
+
+    public TodoDTO selectOne(Long tno) throws Exception {
+        TodoVO todoVO = todoDAO.selectOne(tno);
+        log.info("selectOne--------------------------");
+        log.info(todoVO);
+        TodoDTO todoDTO = modelMapper.map(todoVO, TodoDTO.class);
+
+        return todoDTO;
+    }
+
+    public void deleteOne(Long tno) throws Exception {
+        todoDAO.deleteOne(tno);
+        log.info("deleteOne--------------------------");
+    }
+
+    public void updateOne(TodoDTO todoDTO) throws Exception {
+        TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
+        log.info("updateOne--------------------------");
+        log.info(todoVO);
+        todoDAO.updateOne(todoVO);
     }
 
 }
