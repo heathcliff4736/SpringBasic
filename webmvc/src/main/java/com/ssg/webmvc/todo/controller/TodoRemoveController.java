@@ -1,4 +1,4 @@
-package com.ssg.webmvc.todo;
+package com.ssg.webmvc.todo.controller;
 
 import javax.servlet.http.HttpServlet;
 

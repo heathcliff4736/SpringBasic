@@ -22,6 +22,8 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
+
+    // Hikari
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
     implementation 'com.zaxxer:HikariCP:5.0.1'
 
@@ -33,22 +35,31 @@ dependencies {
     implementation 'org.springframework:spring-webmvc:5.3.27'
     implementation 'org.springframework:spring-test:5.3.27'
 
+    // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
     testCompileOnly 'org.projectlombok:lombok:1.18.30'
-
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
 
+    // mySQL Connector
     implementation 'mysql:mysql-connector-java:8.0.22'
 
+    // Log4j
     implementation 'org.apache.logging.log4j:log4j-api:2.22.1'
     implementation 'org.apache.logging.log4j:log4j-core:2.22.1'
     implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.22.1'
+
+    // JSTL
     // https://mvnrepository.com/artifact/jstl/jstl
     implementation 'jstl:jstl:1.2'
 
+    //junitTest
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    // modelMapper
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    implementation 'org.modelmapper:modelmapper:3.0.0'
 }
 
 test {

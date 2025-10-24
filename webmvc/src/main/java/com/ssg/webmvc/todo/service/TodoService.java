@@ -1,9 +1,12 @@
 package com.ssg.webmvc.todo.service;
 
+import com.ssg.webmvc.todo.dao.TodoDAO;
+import com.ssg.webmvc.todo.domain.TodoVO;
 import com.ssg.webmvc.todo.dto.TodoDTO;
+import com.ssg.webmvc.todo.util.MapperUtil;
+import org.modelmapper.ModelMapper;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -17,25 +20,38 @@ import java.util.stream.IntStream;
 public enum TodoService {
     INSTANCE;
 
-    public void register(TodoDTO todoDTO) {
-        System.out.println("DEBUG......" + todoDTO);
+    // 인젝션 의존성 주입 (DI)
+    private TodoDAO dao;
+    private ModelMapper modelMapper;
+
+    TodoService() {
+        this.dao = new TodoDAO();
+        this.modelMapper = MapperUtil.INSTANCE.get();
+    }
+
+    public void register(TodoDTO todoDTO) throws Exception {
+        TodoVO todoVO = modelMapper.map(todoDTO, TodoVO.class);
+        System.out.println("todo VO :" + todoVO);
+        dao.insert(todoVO);
+        // register() TodoDTO 파라미터를 받고, ModelMapper를 통해서 TodoVO 객체로 변환을 한 후
+        // dao.insert(todoVO)를 통해 TodoVO를 객체를 전달하며 등록기능을 요청.
     }
 
     // 10개의 TodoDTO 객체를 만들어 반환
     public List<TodoDTO> getList() {
         List<TodoDTO> todoDTOS = IntStream.range(0, 10).mapToObj(
-            i -> {
-                TodoDTO dto = new TodoDTO();
-                dto.setTno((long) i);
-                dto.setTitle("Todo..title" + i);
-                dto.setDueDate(LocalDate.now());
-                return dto;
-            }
-            ).collect(Collectors.toList());
+                i -> {
+                    TodoDTO dto = new TodoDTO();
+                    dto.setTno((long) i);
+                    dto.setTitle("Todo..title" + i);
+                    dto.setDueDate(LocalDate.now());
+                    return dto;
+                }
+        ).collect(Collectors.toList());
         return todoDTOS;
     }
 
-    public TodoDTO get(Long tno){
+    public TodoDTO get(Long tno) {
         TodoDTO dto = new TodoDTO();
         dto.setTno(tno);
         dto.setTitle("Sample Todo");
