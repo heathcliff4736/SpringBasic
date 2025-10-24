@@ -13,7 +13,7 @@ public enum ConnectionUtil {
     ConnectionUtil() {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/sqldb?serverTimezone=Asia/Seoul&charEncoding=UTF-8");
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/springexdb?serverTimezone=Asia/Seoul&charEncoding=UTF-8");
         config.setUsername("root");
         config.setPassword("mysql1234");
         config.addDataSourceProperty("cachePrepStmts", "true");
