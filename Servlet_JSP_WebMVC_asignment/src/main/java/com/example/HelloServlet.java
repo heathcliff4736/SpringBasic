@@ -1,4 +1,4 @@
-package com.example.servlet_jsp_webmvc_asignment;
+package com.example;
 
 import java.io.*;
 import javax.servlet.http.*;
