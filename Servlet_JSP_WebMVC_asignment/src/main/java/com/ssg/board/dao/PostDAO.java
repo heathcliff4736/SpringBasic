@@ -40,7 +40,8 @@ public class PostDAO {
         return list;
     }
 
-    public boolean countAll() throws Exception {
+    // 페이징 조회수 ?
+/*    public boolean countAll() throws Exception {
         String sql = "SELECT COUNT(*) FROM board_post";
         int count = 0;
         try (Connection connection = ConnectionUtil.INSTANCE.getConnection();
@@ -53,7 +54,7 @@ public class PostDAO {
         }
 
         return count == 1;
-    }
+    }*/
 
     public Optional<PostVO> findById(long id) throws Exception {
         String sql = "SELECT * FROM board_post WHERE post_id=?";
