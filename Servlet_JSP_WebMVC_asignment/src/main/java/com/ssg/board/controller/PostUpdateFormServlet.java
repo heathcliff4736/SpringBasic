@@ -56,13 +56,21 @@ public class PostUpdateFormServlet extends HttpServlet {
                     .passphrase("") // 비밀번호는 다시 입력하도록
                     .build();
 
-            req.setAttribute("dto", dto);
-            req.setAttribute("errorMsg", e.getMessage());
+            // 세션에 오류 메시지 저장
+            req.getSession().setAttribute("errorMsg", e.getMessage());
 
-            // form.jsp로 포워딩
-            req.getRequestDispatcher("/WEB-INF/views/form.jsp").forward(req, resp);
+            // 입력값을 쿼리 파라미터로 전달 (URL 인코딩 필수)
+            String postId = req.getParameter("postId");
+            String title = java.net.URLEncoder.encode(req.getParameter("title"), "UTF-8");
+            String content = java.net.URLEncoder.encode(req.getParameter("content"), "UTF-8");
+
+            // form.jsp로 리다이렉트
+            resp.sendRedirect(req.getContextPath()
+                    + "/posts/edit?id=" + postId
+                    + "&title=" + title
+                    + "&content=" + content);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ServletException("게시글 수정 중 오류 발생", e);
         }
 
     }
