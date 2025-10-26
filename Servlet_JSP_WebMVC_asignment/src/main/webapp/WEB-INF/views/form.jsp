@@ -98,9 +98,7 @@
     <h2>${empty dto ? "글쓰기" : "게시글 수정"}</h2>
 
     <form method="post" action="${empty dto ? '/posts/save' : '/posts/update'}">
-        <c:if test="${not empty dto}">
-            <input type="hidden" name="postId" value="${dto.postId}" />
-        </c:if>
+        <input type="hidden" name="postId" value="${dto.postId}" />
 
         <label for="title">제목</label>
         <input type="text" id="title" name="title" value="${dto.title}" required />
@@ -109,24 +107,29 @@
         <textarea id="content" name="content" required>${dto.content}</textarea>
 
         <label for="writer">작성자</label>
-        <input type="text" id="writer" name="writer" value="${dto.writer}" ${not empty dto ? "readonly" : ""} required />
+        <input type="text" id="writer" name="writer" value="${dto.writer}" readonly required />
 
         <label for="passphrase">비밀번호</label>
-<%--        <input type="text" id="passphrase" name="passphrase" value="${dto.passphrase}" required />--%>
         <input type="password" id="passphrase" name="passphrase" required />
 
         <div class="buttons">
-            <button type="submit" class="btn btn-save">${empty dto ? "등록" : "수정"}</button>
-            <a href="/posts" class="btn btn-cancel">취소</a>
+            <!-- 수정 버튼: form action 그대로 POST /posts/update -->
+            <button type="submit" class="btn btn-save">수정</button>
 
-            <c:if test="${not empty dto}">
-                <form method="post" action="/posts/delete" style="display:inline;">
-                    <input type="hidden" name="postId" value="${dto.postId}" />
-                    <input type="hidden" name="passphrase" value="${dto.passphrase}" />
-                    <button type="submit" class="btn btn-delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
-                </form>
-            </c:if>
+            <!-- 삭제 버튼: form action 변경 후 POST /posts/delete -->
+            <button type="submit" class="btn btn-delete"
+                    formaction="/posts/delete"
+                    onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+
+            <a href="/posts" class="btn btn-cancel">취소</a>
         </div>
+
+        <!-- 삭제 실패 메시지 표시 -->
+        <c:if test="${not empty errorMsg}">
+            <div style="color:red; font-weight:bold; margin-top:15px;">
+                    ${errorMsg}
+            </div>
+        </c:if>
     </form>
 </div>
 

@@ -39,7 +39,6 @@ public enum PostService {
         return dtoList;
     }
 
-    // 조회수 증가 포함
     public PostDTO getDetail(long id) throws Exception {
         PostVO postVO = postDAO.findById(id)
                 .orElseThrow(() -> new Exception("게시글을 찾을 수 없습니다: id=" + id));

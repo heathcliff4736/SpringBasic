@@ -47,6 +47,12 @@
         .buttons {
             display: flex;
             gap: 10px;
+            align-items: center; /* 버튼과 폼 정렬 */
+        }
+
+        .buttons form {
+            display: flex; /* form 안도 flex */
+            margin: 0; /* 불필요한 여백 제거 */
         }
 
         .btn {
@@ -57,24 +63,18 @@
             font-size: 1em;
             cursor: pointer;
             transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .btn-edit {
+        .btn-edit-delete {
             background-color: #4CAF50;
             color: white;
         }
 
-        .btn-edit:hover {
+        .btn-edit-delete:hover {
             background-color: #45a049;
-        }
-
-        .btn-delete {
-            background-color: #f44336;
-            color: white;
-        }
-
-        .btn-delete:hover {
-            background-color: #e53935;
         }
 
         .btn-list {
@@ -85,6 +85,7 @@
         .btn-list:hover {
             background-color: #bbb;
         }
+
     </style>
 </head>
 <body>
@@ -93,21 +94,27 @@
     <h2>${dto.title}</h2>
     <div class="info">
         작성자: ${dto.writer} |
-        작성일: <fmt:formatDate value="${dto.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/> |
-        수정일: <fmt:formatDate value="${dto.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/>
+        작성일: ${dto.createdAtStr} |
+        수정일: ${dto.updatedAtStr}
     </div>
-    <div class="content">${dto.content}</div>
-
+    <div class="content">
+        <c:out value="${dto.content}" />
+    </div>
     <div class="buttons">
-        <a href="/posts/edit?id=${dto.postId}" class="btn btn-edit">수정</a>
-
-        <form method="post" action="/posts/delete" style="display:inline;">
-            <input type="hidden" name="postId" value="${dto.postId}"/>
-            <input type="hidden" name="passphrase" value="${dto.passphrase}"/>
-            <button type="submit" class="btn btn-delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
-        </form>
-
+        <!-- 수정/삭제 버튼 클릭 시 form.jsp로 이동 -->
+        <a href="/posts/edit?id=${dto.postId}" class="btn btn-edit-delete">수정/삭제</a>
         <a href="/posts" class="btn btn-list">목록</a>
+
+        <!-- 삭제 실패 메시지 표시 -->
+        <c:if test="${not empty errorMsg}">
+            <div style="color:red; font-weight:bold; margin-top:15px;">
+                    ${errorMsg}
+            </div>
+<%--            ${errorMsg}에 따옴표, 줄바꿈, 특수문자가 들어가면 alert가 깨질 수 있음.--%>
+            <script type="text/javascript">
+                alert('<c:out value="${errorMsg}" />');
+            </script>
+        </c:if>
     </div>
 </div>
 

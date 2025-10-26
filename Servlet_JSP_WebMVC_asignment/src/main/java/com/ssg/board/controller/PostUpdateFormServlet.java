@@ -29,7 +29,7 @@ public class PostUpdateFormServlet extends HttpServlet {
             String title = req.getParameter("title");
             String content = req.getParameter("content");
             String writer = req.getParameter("writer");
-            String passPhrase = req.getParameter("passPhrase");
+            String passPhrase = req.getParameter("passphrase");
 
             PostDTO postDTO = PostDTO.builder()
                     .postId(postId)
@@ -46,11 +46,23 @@ public class PostUpdateFormServlet extends HttpServlet {
         } catch (IllegalArgumentException e) {
             // 비밀번호 불일치 등 검증 실패
             log.warn("게시글 수정 실패: {}", e.getMessage());
+
+            // 사용자가 입력한 값 그대로 dto에 담아서 다시 폼에 전달
+            PostDTO dto = PostDTO.builder()
+                    .postId(Long.parseLong(req.getParameter("postId")))
+                    .title(req.getParameter("title"))
+                    .content(req.getParameter("content"))
+                    .writer(req.getParameter("writer"))
+                    .passphrase("") // 비밀번호는 다시 입력하도록
+                    .build();
+
+            req.setAttribute("dto", dto);
             req.setAttribute("errorMsg", e.getMessage());
+
+            // form.jsp로 포워딩
             req.getRequestDispatcher("/WEB-INF/views/form.jsp").forward(req, resp);
         } catch (Exception e) {
-            log.error("게시글 수정 오류", e);
-            throw new ServletException("게시글 수정 실패", e);
+            throw new RuntimeException(e);
         }
 
     }

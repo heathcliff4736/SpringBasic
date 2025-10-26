@@ -26,7 +26,7 @@ public class PostDetailServlet extends HttpServlet {
             Long postId = Long.parseLong(req.getParameter("id"));
             PostDTO postDTO = postService.getDetail(postId);
             req.setAttribute("dto", postDTO);
-            req.getRequestDispatcher("/WEB-INF/views/form.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/detail.jsp").forward(req, resp);
         } catch (Exception e) {
             log.error("게시글 상세 조회 오류", e);
             throw new ServletException("게시글 상세 조회 실패", e);
