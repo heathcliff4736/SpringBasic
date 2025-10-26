@@ -87,7 +87,17 @@ public enum PostService {
     }
 
     // 비번검증 + 삭제
-    public void remove(long id, String passphrase) {}
+    public void remove(long id, String passphrase) throws Exception {
+        log.info("PostService-remove--------------------------");
+        boolean check = postDAO.checkPassphrase(id, passphrase);
+        if (!check) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+        boolean deleted = postDAO.delete(id);
+        if(!deleted) {
+            throw new Exception("게시글 삭제에 실패했습니다.");
+        }
+    }
 
 
 }

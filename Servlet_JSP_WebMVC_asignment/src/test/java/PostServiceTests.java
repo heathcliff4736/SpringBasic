@@ -42,9 +42,15 @@ public class PostServiceTests {
         postDTO.setTitle("업데이트된 테스트 제목22");
         postDTO.setWriter("updated tester22");
         postDTO.setContent("업데이트된 글 내용22");
-        postDTO.setPassphrase("1234");
-        String passPhrase = "1234";
+        postDTO.setPassphrase("12345");
+        String passPhrase = "12345";
 
         PostService.INSTANCE.edit(postDTO, passPhrase);
+    }
+
+    @Test
+    void testRemove() throws Exception {
+        String passPhrase = "1234";
+        PostService.INSTANCE.remove(9L, passPhrase);
     }
 }
