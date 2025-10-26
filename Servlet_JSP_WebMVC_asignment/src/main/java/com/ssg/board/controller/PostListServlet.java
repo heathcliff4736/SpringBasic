@@ -24,7 +24,7 @@ public class PostListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("/posts doGet() 호출");
-
+        req.setCharacterEncoding("UTF-8");
         try{
             List<PostDTO> dtoList = postService.getList();
             req.setAttribute("dtoList", dtoList);

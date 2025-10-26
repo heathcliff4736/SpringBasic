@@ -112,7 +112,8 @@
         <input type="text" id="writer" name="writer" value="${dto.writer}" ${not empty dto ? "readonly" : ""} required />
 
         <label for="passphrase">비밀번호</label>
-        <input type="text" id="passphrase" name="passphrase" value="${dto.passphrase}" required />
+<%--        <input type="text" id="passphrase" name="passphrase" value="${dto.passphrase}" required />--%>
+        <input type="password" id="passphrase" name="passphrase" required />
 
         <div class="buttons">
             <button type="submit" class="btn btn-save">${empty dto ? "등록" : "수정"}</button>

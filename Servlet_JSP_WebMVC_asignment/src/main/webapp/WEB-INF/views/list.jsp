@@ -93,8 +93,8 @@
             </td>
 
             <td>${dto.writer}</td>
-            <td>${dto.createdAt}</td>
-            <td>${dto.updatedAt}</td>
+            <td>${dto.createdAtStr}</td>
+            <td>${dto.updatedAtStr}</td>
         </tr>
     </c:forEach>
 

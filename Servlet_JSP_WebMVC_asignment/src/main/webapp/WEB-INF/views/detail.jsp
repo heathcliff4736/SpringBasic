@@ -1,6 +1,7 @@
 <%-- 게시글 상세 보기 JSP (detail.jsp) --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <html>
 <head>
@@ -16,7 +17,7 @@
             margin: 50px auto;
             background: #fff;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 30px;
         }
 
@@ -45,8 +46,7 @@
 
         .buttons {
             display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+            gap: 10px;
         }
 
         .btn {
@@ -91,20 +91,24 @@
 
 <div class="container">
     <h2>${dto.title}</h2>
-    <p>작성자: ${dto.writer}</p>
-    <p>작성일: ${dto.createdAt}</p>
-    <p>수정일: ${dto.updatedAt}</p>
-    <p>${dto.content}</p>
+    <div class="info">
+        작성자: ${dto.writer} |
+        작성일: <fmt:formatDate value="${dto.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/> |
+        수정일: <fmt:formatDate value="${dto.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/>
+    </div>
+    <div class="content">${dto.content}</div>
 
-    <a href="/posts/edit?id=${dto.postId}" class="btn btn-save">수정</a>
+    <div class="buttons">
+        <a href="/posts/edit?id=${dto.postId}" class="btn btn-edit">수정</a>
 
-    <form method="post" action="/posts/delete" style="display:inline;">
-        <input type="hidden" name="postId" value="${dto.postId}" />
-        <input type="hidden" name="passphrase" value="${dto.passphrase}" />
-        <button type="submit" class="btn btn-delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
-    </form>
+        <form method="post" action="/posts/delete" style="display:inline;">
+            <input type="hidden" name="postId" value="${dto.postId}"/>
+            <input type="hidden" name="passphrase" value="${dto.passphrase}"/>
+            <button type="submit" class="btn btn-delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+        </form>
 
-    <a href="/posts" class="btn btn-cancel">목록</a>
+        <a href="/posts" class="btn btn-list">목록</a>
+    </div>
 </div>
 
 </body>

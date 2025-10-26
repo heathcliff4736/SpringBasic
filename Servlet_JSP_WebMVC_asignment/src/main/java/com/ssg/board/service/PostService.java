@@ -28,8 +28,13 @@ public enum PostService {
         log.info("voList-----------------------------");
         log.info(voList);
 
-        List<PostDTO> dtoList = voList.stream().map(
-                postVO -> modelMapper.map(postVO, PostDTO.class)).collect(Collectors.toList());
+        List<PostDTO> dtoList = voList.stream()
+                .map(postVO -> {
+                    PostDTO dto = modelMapper.map(postVO, PostDTO.class);
+                    dto.formatDates();  // 날짜 포맷 적용
+                    return dto;
+                })
+                .collect(Collectors.toList());
 
         return dtoList;
     }
@@ -42,6 +47,7 @@ public enum PostService {
         log.info(postVO);
 
         PostDTO postDTO = modelMapper.map(postVO, PostDTO.class);
+        postDTO.formatDates(); // 날짜 포맷 적용
         return postDTO;
     }
 
