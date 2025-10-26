@@ -1,11 +1,10 @@
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import lombok.extern.log4j.Log4j2;
+
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 
-@Log4j2
 public class ConnectionTests {
 
     @Test
@@ -19,10 +18,8 @@ public class ConnectionTests {
         HikariDataSource ds = new HikariDataSource(config);
         Connection conn = ds.getConnection();
 
-        log.info("Connected to database");
-        log.info(conn);
+        System.out.println(conn);
         conn.close();
-
 
     }
 }
