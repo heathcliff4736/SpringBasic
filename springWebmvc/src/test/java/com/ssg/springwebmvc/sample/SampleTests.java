@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 @Log4j2
 @ExtendWith(SpringExtension.class)      // Junit 버전에서 spring-test 이용하기 위한 설정 이노테이션
 // 스프링의 섫정 정보를 로딩하기 위한
@@ -28,6 +32,9 @@ public class SampleTests {
 
     @Autowired
     private Lecture lecture;
+
+    @Autowired
+    private DataSource dataSource;
 
     @Test
     public void testSampleService() {
@@ -52,4 +59,17 @@ public class SampleTests {
         log.info("---------------------------------------------------------------------------------------");
         Assertions.assertNotNull(lecture);
     }
+//    스프링은 필요한 객체를 스프링이 주입해주기 때문에 개별적으로 클래스를 작성해서
+//    빈(Bean)으로 등록해두기만 하면 원하는 곳에서 쉽게 다른 객체를 사용할 수 있다.
+
+    @Test
+    public void testDataSource() throws Exception {
+        Connection connection = dataSource.getConnection();
+        log.info("---------------------------------------------------------------------------------------");
+        log.info(connection);
+        log.info("---------------------------------------------------------------------------------------");
+        Assertions.assertNotNull(connection);
+        connection.close();
+    }
+
 }

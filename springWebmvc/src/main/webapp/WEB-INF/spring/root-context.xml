@@ -4,13 +4,31 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-<!--    <bean class="com.ssg.springwebmvc.sample.SampleDAO"></bean>-->
-<!--    <bean class="com.ssg.springwebmvc.sample.SampleService"></bean>-->
-<!--    <bean class="com.ssg.springwebmvc.sample.Restaurant"></bean>-->
-<!--    <bean class="com.ssg.springwebmvc.sample.Chef"></bean>-->
-<!--    <context:component-scan base-package="com.ssg.springwebmvc.sample"/>-->
+    <!--    <bean class="com.ssg.springwebmvc.sample.SampleDAO"></bean>-->
+    <!--    <bean class="com.ssg.springwebmvc.sample.SampleService"></bean>-->
+    <!--    <bean class="com.ssg.springwebmvc.sample.Restaurant"></bean>-->
+    <!--    <bean class="com.ssg.springwebmvc.sample.Chef"></bean>-->
+    <!--    <context:component-scan base-package="com.ssg.springwebmvc.sample"/>-->
     <context:component-scan base-package="com.ssg.springwebmvc"/>
 
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/springexdb?serverTimezone=Asia/Seoul"></property>
+        <property name="Username" value="root"></property>
+        <property name="Password" value="mysql1234"></property>
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="cachePrepStmts">true</prop>
+                <prop key="prepStmtCacheSize">250</prop>
+                <prop key="prepStmtCacheSqlLimit">2048</prop>
+            </props>
+        </property>
+        
+    </bean>
+
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg ref="hikariConfig" />
+    </bean>
 
 
 </beans>
