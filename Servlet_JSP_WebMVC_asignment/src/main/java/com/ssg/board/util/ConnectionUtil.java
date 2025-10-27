@@ -1,4 +1,4 @@
-package com.ssg.board.dao;
+package com.ssg.board.util;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -14,7 +14,7 @@ public enum ConnectionUtil {
         config.setDriverClassName("com.mysql.cj.jdbc.Driver");
         config.setJdbcUrl("jdbc:mysql://localhost:3306/springexdb?serverTimezone=Asia/Seoul&charEncoding=UTF-8");
         config.setUsername("root");
-        config.setPassword("1234");
+        config.setPassword("mysql1234");
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

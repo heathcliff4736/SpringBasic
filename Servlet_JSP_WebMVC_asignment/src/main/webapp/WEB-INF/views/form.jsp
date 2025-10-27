@@ -16,7 +16,7 @@
             margin: 50px auto;
             background: #fff;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 30px;
         }
 
@@ -98,28 +98,39 @@
     <h2>${empty dto ? "글쓰기" : "게시글 수정"}</h2>
 
     <form method="post" action="${empty dto ? '/posts/save' : '/posts/update'}">
-        <input type="hidden" name="postId" value="${dto.postId}" />
+        <input type="hidden" name="postId" value="${dto.postId}"/>
 
         <label for="title">제목</label>
-        <input type="text" id="title" name="title" value="${dto.title}" required />
+        <input type="text" id="title" name="title" value="${dto.title}" required/>
 
         <label for="content">내용</label>
         <textarea id="content" name="content" required>${dto.content}</textarea>
 
         <label for="writer">작성자</label>
-        <input type="text" id="writer" name="writer" value="${dto.writer}" readonly required />
+<%--        작성자도 dto가 없으면 활성화, 있으면 비활성화--%>
+        <input type="text" id="writer" name="writer"
+               value="${dto.writer}"
+        ${not empty dto ? 'readonly' : ''}
+               required />
 
         <label for="passphrase">비밀번호</label>
-        <input type="password" id="passphrase" name="passphrase" required />
+        <input type="password" id="passphrase" name="passphrase" required/>
 
         <div class="buttons">
             <!-- 수정 버튼: form action 그대로 POST /posts/update -->
-            <button type="submit" class="btn btn-save">수정</button>
+            <!-- 글쓰기 모드면 '등록', 수정 모드면 '수정' -->
+            <button type="submit" class="btn btn-save">
+                ${empty dto ? "등록" : "수정"}
+            </button>
 
             <!-- 삭제 버튼: form action 변경 후 POST /posts/delete -->
-            <button type="submit" class="btn btn-delete"
-                    formaction="/posts/delete"
-                    onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+            <!-- dto가 있을 때만 삭제 버튼 노출 -->
+            <c:if test="${not empty dto}">
+                <button type="submit" class="btn btn-delete"
+                        formaction="/posts/delete"
+                        onclick="return confirm('정말 삭제하시겠습니까?');">삭제
+                </button>
+            </c:if>
 
             <a href="/posts" class="btn btn-cancel">취소</a>
         </div>

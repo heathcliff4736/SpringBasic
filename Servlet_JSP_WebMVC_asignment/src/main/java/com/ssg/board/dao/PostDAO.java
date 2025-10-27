@@ -1,7 +1,7 @@
 package com.ssg.board.dao;
 
 import com.ssg.board.domain.PostVO;
-import lombok.Cleanup;
+import com.ssg.board.util.ConnectionUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

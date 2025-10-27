@@ -14,7 +14,7 @@ public class ConnectionTests {
         config.setDriverClassName("com.mysql.cj.jdbc.Driver");
         config.setJdbcUrl("jdbc:mysql://localhost:3306/springexdb?serverTimezone=Asia/Seoul&charEncoding=UTF-8");
         config.setUsername("root");
-        config.setPassword("1234");
+        config.setPassword("mysql1234");
         HikariDataSource ds = new HikariDataSource(config);
         Connection conn = ds.getConnection();
 
