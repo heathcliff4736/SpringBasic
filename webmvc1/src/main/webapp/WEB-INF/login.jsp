@@ -15,7 +15,6 @@
 <c:if test="${param.result == 'error'}">
     <h2>로그인 에러</h2>
 </c:if>
-
 <form action="/login" method="post">
     <input type="text" name="mid"></input>
     <input type="text" name="mpw"></input>

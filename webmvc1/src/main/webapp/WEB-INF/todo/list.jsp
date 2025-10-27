@@ -74,7 +74,8 @@
 <%--    </c:forEach>--%>
 <%--</ul>--%>
 
-
+<h2>${loginInfo}</h2>
+<h2>[${loginInfo.mname}]님 환영합니다.</h2>
 
 <table>
     <caption>Todo List</caption>
