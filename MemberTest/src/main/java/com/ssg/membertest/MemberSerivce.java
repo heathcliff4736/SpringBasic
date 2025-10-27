@@ -1,4 +1,9 @@
 package com.ssg.membertest;
 
-public class MemberSerivce {
+import java.util.List;
+
+public interface MemberSerivce {
+    List<MemberDTO> findAll();
+
+    void save(MemberDTO memberDTO);
 }
