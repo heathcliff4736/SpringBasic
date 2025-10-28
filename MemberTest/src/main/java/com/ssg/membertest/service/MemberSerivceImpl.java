@@ -17,14 +17,14 @@ public class MemberSerivceImpl implements MemberSerivce {
 
     @Override
     @Transactional
-    public List<MemberDTO> memberList(){
+    public List<MemberDTO> memberList() {
         return memberDAO.findAll();
     }
 
     @Override
     @Transactional
-    public void joinMember(MemberDTO memberDTO) {
-        memberDAO.insert(memberDTO);
+    public int joinMember(MemberDTO memberDTO) {
+        return memberDAO.insert(memberDTO);
     }
 
 

@@ -34,7 +34,7 @@ public class MemberDAOImpl implements MemberDAO {
 
     @Override
     public int insert(MemberDTO memberDTO) {
-        String sql = "INSERT INTO member(mid, mpw, mname) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO t_member(mid, mpw, mname) VALUES(?, ?, ?)";
         return jdbcTemplate.update(sql,
                 memberDTO.getMid(),
                 memberDTO.getMpw(),
