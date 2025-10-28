@@ -20,4 +20,15 @@
     <mvc:annotation-driven/>
     <mvc:resources mapping="/resources/**" location="classpath:/static"/>
 
+<!--    conversionService 빈을 등록한 후 스프링MVC처리를 위해 <mvc:annotation-driven/> 지정해야한다.-->
+    <mvc:annotation-driven conversion-service="conversionService"/>
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="com.ssg.springwebmvc.controller.formatter.LocalDateFormatter" />
+            </set>
+        </property>
+    </bean>
+
 </beans>
