@@ -32,6 +32,7 @@ public class MemberTests {
     @Autowired
     private MemberSerivce memberService;
 
+
     @Test
     public void testDataSource() throws Exception {
         Connection connection = dataSource.getConnection();
