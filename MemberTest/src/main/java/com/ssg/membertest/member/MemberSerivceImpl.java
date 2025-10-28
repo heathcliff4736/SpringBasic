@@ -1,7 +1,8 @@
-package com.ssg.membertest;
+package com.ssg.membertest.member;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,12 +14,16 @@ public class MemberSerivceImpl implements MemberSerivce {
     private final MemberDAO memberDAO;
 
     @Override
-    public List<MemberDTO> findAll(){
+    @Transactional
+    public List<MemberDTO> memberList(){
         return memberDAO.findAll();
     }
 
     @Override
-    public void save(MemberDTO memberDTO) {
-        memberDAO.save(memberDTO);
+    @Transactional
+    public void joinMember(MemberDTO memberDTO) {
+        memberDAO.insert(memberDTO);
     }
+
+
 }

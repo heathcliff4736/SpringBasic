@@ -1,11 +1,11 @@
-package com.ssg.membertest;
+package com.ssg.membertest.member;
 
 import java.util.List;
 
 public interface MemberDAO {
 
 
-    void save(MemberDTO memberDTO);
+    int insert(MemberDTO memberDTO);
 
     List<MemberDTO> findAll();
 }
