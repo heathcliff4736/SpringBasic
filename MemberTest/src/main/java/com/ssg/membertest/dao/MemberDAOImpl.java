@@ -1,5 +1,6 @@
-package com.ssg.membertest.member;
+package com.ssg.membertest.dao;
 
+import com.ssg.membertest.dto.MemberDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,12 +21,10 @@ public class MemberDAOImpl implements MemberDAO {
         @Override
         public MemberDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
             MemberDTO memberDTO = new MemberDTO();
-            memberDTO.setUserId(rs.getString("userId"));
-            memberDTO.setUserName(rs.getString("userPwd"));
-            memberDTO.setUserName(rs.getString("userName"));
-            memberDTO.setUserEmail(rs.getString("userEmail"));
-            java.sql.Date joinDate = rs.getDate("joinDate");
-            memberDTO.setJoinDate(joinDate != null ? joinDate.toLocalDate() : null);
+            memberDTO.setMid(rs.getString("mid"));
+            memberDTO.setMpw(rs.getString("mpw"));
+            memberDTO.setMname(rs.getString("mname"));
+
             return memberDTO;
         }
     };
@@ -35,19 +34,17 @@ public class MemberDAOImpl implements MemberDAO {
 
     @Override
     public int insert(MemberDTO memberDTO) {
-        String sql = "INSERT INTO member(userId, userPwd, userName, userEmail, joinDate) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO member(mid, mpw, mname) VALUES(?, ?, ?)";
         return jdbcTemplate.update(sql,
-                memberDTO.getUserId(),
-                memberDTO.getUserPwd(),
-                memberDTO.getUserName(),
-                memberDTO.getUserEmail(),
-                java.sql.Date.valueOf(memberDTO.getJoinDate())
+                memberDTO.getMid(),
+                memberDTO.getMpw(),
+                memberDTO.getMname()
         );
     }
 
     @Override
     public List<MemberDTO> findAll() {
-        String sql = "select * from member order by userId desc";
+        String sql = "select * from t_member";
         return jdbcTemplate.query(sql, MEMBER_DTO_ROW_MAPPER);
     }
 }

@@ -1,5 +1,7 @@
-package com.ssg.membertest.member;
+package com.ssg.membertest.service;
 
+import com.ssg.membertest.dao.MemberDAO;
+import com.ssg.membertest.dto.MemberDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

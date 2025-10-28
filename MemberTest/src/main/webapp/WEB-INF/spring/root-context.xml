@@ -12,6 +12,7 @@
        http://www.springframework.org/schema/tx/spring-tx.xsd
        http://mybatis.org/schema/mybatis-spring
        http://mybatis.org/schema/mybatis-spring.xsd">
+
     <context:component-scan base-package="com.ssg.membertest"/>
 
     <!--  jdbc data source-->
@@ -54,6 +55,6 @@
         <property name="mapperLocations" value="classpath:/mappers/**/*.xml"></property>
     </bean>
 
-    <mybatis:scan base-package="com.ssg.membertest.mapper"></mybatis:scan>
+    <mybatis:scan base-package="com.ssg.membertest.member"></mybatis:scan>
 
 </beans>
