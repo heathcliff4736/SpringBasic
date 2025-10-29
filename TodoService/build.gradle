@@ -59,8 +59,6 @@ dependencies {
 
     implementation 'org.modelmapper:modelmapper:3.0.0'
 
-    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.2.1.Final'
-
 }
 
 test {
