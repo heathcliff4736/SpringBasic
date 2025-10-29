@@ -23,4 +23,9 @@ public class MemberDAOImpl implements MemberDAO {
     public List<MemberDTO> findAll() {
         return memberMapper.findAll();
     }
+
+    @Override
+    public MemberDTO findById(String userId) {
+        return memberMapper.findById(userId);
+    }
 }

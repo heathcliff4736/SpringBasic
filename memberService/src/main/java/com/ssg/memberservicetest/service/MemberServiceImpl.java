@@ -15,26 +15,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-    private final MemberMapper memberMapper;
-
-
+    private final MemberDAO memberDAO;
 
     @Override
     @Transactional
     public void joinMember(MemberDTO member) {
-        memberMapper.insert(member);
+        memberDAO.insert(member);
 
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<MemberDTO> memberList() {
-        return memberMapper.findAll();
+        return memberDAO.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public MemberDTO findById(String userId) {
-        return memberMapper.findById(userId);
+        return memberDAO.findById(userId);
     }
 }
