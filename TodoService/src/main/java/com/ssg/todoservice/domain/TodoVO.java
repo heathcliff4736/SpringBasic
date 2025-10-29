@@ -1,4 +1,4 @@
-package com.ssg.todoservice.dto;
+package com.ssg.todoservice.domain;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -8,12 +8,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@Getter
 @ToString
-@Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class TodoDTO {
+@NoArgsConstructor
+@Builder
+public class TodoVO {
 
     private Long tno;
 

@@ -6,29 +6,44 @@
 
 <mapper namespace="com.ssg.todoservice.mapper.TodoMapper">
 
-    <resultMap id="TodoResultMap" type="com.ssg.todoservice.dto.TodoDTO">
+    <!--<resultMap id="TodoResultMap" type="com.ssg.todoservice.dto.TodoDTO">
         <id property="tno"    column="tno"/>
         <result property="title"   column="title"/>
         <result property="dueDate"  column="dueDate" jdbcType="DATE" javaType="java.time.LocalDate"/>
         <result property="writer"  column="writer"/>
         <result property="finished"  column="finished"/>
-    </resultMap>
+    </resultMap>-->
 
 <!--java.timeLocalDate 매핑 : JSR-310 타입 핸들러 이용-->
-    <insert id="insert" parameterType="com.ssg.todoservice.dto.TodoDTO">
-        INSERT INTO tbl_todo (tno, title, dueDate, writer, finished)
-        VALUES (#{tno}, #{title}, #{dueDate, jdbcType=DATE, javaType=java.time.LocalDate}, #{writer}, #{finished})
+<!--    <insert id="insert" parameterType="com.ssg.todoservice.dto.TodoDTO">-->
+    <insert id="insert" >
+        INSERT INTO tbl_todo (title, dueDate, writer)
+        VALUES (#{title}, #{dueDate, jdbcType=DATE, javaType=java.time.LocalDate}, #{writer})
     </insert>
 
-     <select id="findAll" resultMap="TodoResultMap">
+     <select id="selectAll" resultType="com.ssg.todoservice.domain.TodoVO">
         SELECT tno, title, dueDate, writer, finished
         FROM tbl_todo
-        ORDER BY tno
+        ORDER BY tno DESC
     </select>
 
-    <select id="findById" parameterType="string" resultMap="TodoResultMap">
+    <select id="selectOne" resultType="com.ssg.todoservice.domain.TodoVO">
         SELECT tno, title, dueDate, writer, finished
         FROM tbl_todo
         WHERE tno = #{tno}
     </select>
+
+    <select id="getTime" resultType="string">
+        SELECT NOW()
+    </select>
+    
+    <delete id="delete">
+        delete from tbl_todo where tno = #{tno}
+    </delete>
+
+    <update id="update">
+        update tbl_todo set title = #{title}, dueDate = #{dueDate},
+        finished = #{finished} where tno = #{tno}
+    </update>
+
 </mapper>
