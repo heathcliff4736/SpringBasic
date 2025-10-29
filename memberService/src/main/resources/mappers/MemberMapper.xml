@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--URI 처리-->
 
 <mapper namespace="com.ssg.memberservicetest.mapper.MemberMapper">
 
@@ -13,7 +14,7 @@
         <result property="joinDate"  column="joinDate" jdbcType="DATE" javaType="java.time.LocalDate"/>
     </resultMap>
 
-
+<!--java.timeLocalDate 매핑 : JSR-310 타입 핸들러 이용-->
     <insert id="insert" parameterType="com.ssg.memberservicetest.dto.MemberDTO">
         INSERT INTO member (userId, userPwd, userName, userEmail, joinDate)
         VALUES (#{userId}, #{userPwd}, #{userName}, #{userEmail},
