@@ -5,7 +5,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter
@@ -17,6 +16,7 @@ public class TodoVO {
 
     private Long tno;
 
+    @NotEmpty
     private String title;
 
     @Future
