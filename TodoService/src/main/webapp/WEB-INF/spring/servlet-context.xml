@@ -23,8 +23,8 @@
 
 <!--    <mvc:annotation-driven conversion-service="conversionService"/>-->
 
-<!--    <mvc:resources mapping="/resources/**" location="classpath:/static/"/>-->
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/resources/**" location="classpath:/static/"/>
+<!--    <mvc:resources mapping="/resources/**" location="/resources/"/>-->
 
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="formatters">

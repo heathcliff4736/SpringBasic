@@ -12,9 +12,17 @@
     </insert>
 
      <select id="selectAll" resultType="com.ssg.todoservice.domain.TodoVO">
+<!--         MyBatis는 기본적으로 getXXX, setXXX를 통해서 동작하므로 #{skip}는 PageRequestDTO의 getSkip()를 호출한다.-->
         SELECT tno, title, dueDate, writer, finished
         FROM tbl_todo
         ORDER BY tno DESC
+    </select>
+
+    <select id="selectList" resultType="com.ssg.todoservice.domain.TodoVO">
+        <!--         MyBatis는 기본적으로 getXXX, setXXX를 통해서 동작하므로 #{skip}는 PageRequestDTO의 getSkip()를 호출한다.-->
+        SELECT tno, title, dueDate, writer, finished
+        FROM tbl_todo
+        ORDER BY tno DESC limit #{skip}, #{size}
     </select>
 
     <select id="selectOne" resultType="com.ssg.todoservice.domain.TodoVO">
@@ -35,5 +43,10 @@
         update tbl_todo set title = #{title}, dueDate = #{dueDate},
         finished = #{finished} where tno = #{tno}
     </update>
+
+<!--    tbl_todo테이블의 전체 row의 개수를 반환-->
+    <select id="getCount" resultMap="int">
+        SELECT COUNT(tno) FROM tbl_todo
+    </select>
 
 </mapper>
