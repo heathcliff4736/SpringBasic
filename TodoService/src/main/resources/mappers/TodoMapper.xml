@@ -45,7 +45,7 @@
     </update>
 
 <!--    tbl_todo테이블의 전체 row의 개수를 반환-->
-    <select id="getCount" resultMap="int">
+    <select id="getCount" resultType="int">
         SELECT COUNT(tno) FROM tbl_todo
     </select>
 

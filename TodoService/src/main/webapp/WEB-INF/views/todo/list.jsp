@@ -42,7 +42,7 @@
         </div>
         <!-- header end -->
         <!-- 기존의 <h1>Header</h1>끝 -->
-        <div class="row content">
+        <%--<div class="row content">
             <div class="col">
                 <div class="card">
                     <div class="card-body">
@@ -75,7 +75,7 @@
                 </div>
 
             </div>
-        </div>
+        </div>--%>
 
         <div class="row content">
             <div class="col">
@@ -96,7 +96,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${dtoList}" var="dto">
+                            <c:forEach items="${responseDTO.dtoList}" var="dto" varStatus="status">
                                 <tr>
                                     <td>
                                         <a href="/todo/read?tno=${dto.tno}"><c:out value="${dto.tno}"/></a>
@@ -115,10 +115,28 @@
 
                             </tbody>
                         </table>
-
-                        </table>
-
                         <div class="float-end">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <c:if test="{responseDTO.prev}">
+                                        <li class="page-item"><a class="page-link">Previous</a> </li>
+                                    </c:if>
+                                    <c:forEach begin="${responseDTO.start}" end="${reponseDTO.end}" var="num">
+                                        <li class="page-item" ${responseDTO.page == num ? "active":""}>
+                                            <a class="page-link" href="#">${num}</a>
+                                        </li>
+                                    </c:forEach>
+
+                                    <c:if test="{responseDTO.next}">
+                                        <li class="page-item"><a class="page-link">Next</a> </li>
+                                    </c:if>
+                                </ul>
+                            </nav>
+                        </div>
+
+
+
+<%--                        <div class="float-end">
                             <ul class="pagination flex-wrap">
                                 <c:if test="${responseDTO.prev}">
                                     <li class="page-item">
@@ -138,7 +156,7 @@
                                 </c:if>
                             </ul>
 
-                        </div>
+                        </div>--%>
 
                         <script>
 
