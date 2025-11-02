@@ -96,7 +96,7 @@ Spring MVC와 MyBatis를 활용한 게시판 시스템 구현을 통해 웹 애�
 - 댓글 기능 추가
 - RESTful API로 리팩토링
 - JPA 학습 및 적용
-```
+
 
 
 
