@@ -1,140 +1,102 @@
-# 🧩 Simple Board Project (JSP & Servlet)
+# Spring Practice Projects
 
-## 📘 프로젝트 개요
-이 프로젝트는 **JSP/Servlet 기반의 게시판 웹 애플리케이션**으로,  
-게시글 등록(Create), 조회(Read), 수정(Update), 삭제(Delete) 기능을 구현하였습니다.  
+Spring Framework를 학습하며 작성한 연습 프로젝트 모음입니다.
 
-MVC 패턴을 기반으로 구조를 설계하고,  
-**POST-Redirect-GET (PRG)** 패턴을 적용하여 새로고침 시 중복 요청을 방지했습니다.
+## 📚 프로젝트 개요
 
----
-
-## 🚀 주요 기능
-
-| 기능 | 설명 |
-|------|------|
-| 📝 게시글 등록 | 작성자, 제목, 내용, 비밀번호 입력 후 게시글 등록 |
-| 🔍 게시글 조회 | 게시글 목록 및 상세 페이지 제공 |
-| ✏️ 게시글 수정 | 비밀번호 검증 후 게시글 수정 가능 |
-| ❌ 게시글 삭제 | 비밀번호 검증 후 게시글 삭제 가능 |
-| 🔒 비밀번호 검증 | 수정/삭제 시 입력한 비밀번호와 저장된 비밀번호 일치 여부 확인 |
-| 🔄 PRG 패턴 적용 | 등록, 수정, 삭제 완료 후 redirect로 중복 요청 방지 |
-| 🎨 JSTL + CSS 적용 | JSTL을 사용하여 JSP 표현식 최소화, 간단한 스타일링 적용 |
+Spring MVC와 MyBatis를 활용한 게시판 시스템 구현을 통해 웹 애플리케이션 개발의 기본을 학습했습니다.
 
 ---
 
-## 🧱 기술 스택
+## 🎯 Spring Web MVC Board
 
-| 구분 | 기술 |
-|------|------|
-| Language | Java 17 |
-| Framework | Servlet / JSP |
-| View Template | JSP + JSTL |
-| Build Tool | Gradle |
-| Logging | Log4j2 |
-| Database | MySQL (또는 MariaDB) |
-| JDBC | HikariCP (또는 기본 JDBC 사용) |
-| Server | Apache Tomcat 10.x |
+### 기술 스택
+- **Framework**: Spring MVC
+- **ORM**: MyBatis
+- **View**: JSP, JSTL
+- **UI**: Bootstrap 5
+- **기타**: Lombok, ModelMapper, Validation API
 
----
-
-## 📂 프로젝트 구조
-
-```
-📦 src
- ┣ 📂 main
- ┃ ┣ 📂 java
- ┃ ┃ ┗ 📂 com.ssg.board
- ┃ ┃ ┃ ┣ 📂 controller
- ┃ ┃ ┃ ┣ 📂 dto
- ┃ ┃ ┃ ┣ 📂 service
- ┃ ┃ ┃ ┣ 📂 dao
- ┃ ┃ ┃ ┗ 📂 domain
- ┃ ┣ 📂 webapp
- ┃ ┃ ┣ 📂 WEB-INF
- ┃ ┃ ┃ ┣ 📂 views
- ┃ ┃ ┃ ┃ ┣ 📜 list.jsp
- ┃ ┃ ┃ ┃ ┣ 📜 detail.jsp
- ┃ ┃ ┃ ┃ ┣ 📜 form.jsp
- ┃ ┃ ┃ ┃ ┗ 📜 error.jsp
- ┃ ┃ ┗ 📜 web.xml
- ┗ 📜 build.gradle
-```
+### 구현 기능
+- 게시글 CRUD (등록/조회/수정/삭제)
+- 페이징 처리
+- 검색 기능 (제목/작성자)
+- 조회수 자동 증가
+- 파일 첨부 기능
+- 입력값 검증 (Validation)
 
 ---
 
-## 🔁 주요 흐름 (PRG 패턴 적용)
+## 📖 학습한 핵심 개념
 
-1️⃣ 사용자가 폼에서 게시글 등록 (POST `/posts/save`)  
-2️⃣ 서버에서 DB 처리 후 redirect → `/posts/view?id={postId}`  
-3️⃣ 사용자는 GET 요청으로 결과 페이지를 확인  
+### 1. Spring MVC 아키텍처
+- Controller-Service-Mapper 3계층 구조 설계
+- `@Controller`, `@RequestMapping`을 통한 요청 처리
+- `@GetMapping`, `@PostMapping`으로 HTTP 메서드 분리
+- 의존성 주입(DI)을 통한 느슨한 결합
 
-이로써 새로고침 시 중복 등록이 발생하지 않음.  
-수정/삭제 로직에도 동일한 패턴을 적용.
+### 2. MyBatis 데이터베이스 연동
+- XML Mapper를 활용한 SQL 쿼리 관리
+- 파라미터 바인딩과 결과 매핑
+- CRUD 쿼리 작성 및 실행
 
----
+### 3. Validation과 에러 처리
+- `@Valid`를 통한 입력값 검증
+- `BindingResult`로 검증 오류 확인
+- `RedirectAttributes`를 통한 데이터 전달
+- Flash Attribute 활용
 
-## ⚙️ 실행 방법
+### 4. JSP와 JSTL
+- JSTL을 활용한 동적 페이지 렌더링
+- `<c:forEach>`, `<c:if>`, `<c:out>` 활용
+- EL(Expression Language)을 통한 데이터 표현
 
-1️⃣ **프로젝트 클론**
-```bash
-git clone https://github.com/yourusername/simple-board-servlet.git
-```
+### 5. 페이징 처리
+- 페이지네이션 로직 구현
+- 이전/다음 페이지 버튼 처리
+- JavaScript를 통한 동적 폼 제출
 
-2️⃣ **데이터베이스 생성**
-```sql
-CREATE DATABASE board CHARACTER SET utf8mb4;
-USE board;
+### 6. 검색 기능
+- GET 방식의 검색 쿼리 처리
+- 검색어 유지 및 초기화
+- 검색과 페이징의 결합
 
-CREATE TABLE posts (
-  post_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  content TEXT NOT NULL,
-  writer VARCHAR(100) NOT NULL,
-  passphrase VARCHAR(255) NOT NULL,
-  created_at DATETIME DEFAULT NOW(),
-  updated_at DATETIME DEFAULT NOW() ON UPDATE NOW()
-);
-```
+### 7. DTO/VO 패턴
+- 계층 간 데이터 전달 객체 분리
+- ModelMapper를 통한 객체 간 자동 매핑
 
-3️⃣ **JDBC 설정 수정**
-`ConnectionUtil` 또는 `application.properties` 파일의 DB 연결 정보 수정
-
-4️⃣ **Tomcat 실행 후 브라우저 접속**
-```
-http://localhost:8080/posts
-```
-
----
-
-## 💡 학습 포인트
-
-- JSP/Servlet 기반 **MVC 구조 설계**
-- **DTO, DAO, Service Layer 분리**
-- **PRG 패턴**을 통한 UX 개선
-- **JSTL**로 JSP 로직 간소화
-- **Log4j2**를 이용한 서버 로깅 처리
-- **비밀번호 검증 로직**을 통한 기본 보안 처리
+### 8. 파일 업로드
+- 파일 경로와 원본 파일명 분리 저장
+- NULL 처리를 위한 `jdbcType` 설정
 
 ---
 
-## 📸 화면 예시 *(선택 사항)*
-> 📷 `list.jsp`, `detail.jsp`, `form.jsp` 스크린샷을 여기에 추가하면 더 완성도 높습니다.
+## 🎓 프로젝트를 통해 배운 것
+
+- Spring MVC의 요청-응답 흐름 이해
+- 계층형 아키텍처 설계 및 구현
+- MyBatis를 활용한 데이터베이스 연동
+- JSP/JSTL을 활용한 동적 웹 페이지 구현
+- 페이징, 검색 등 기본 기능 구현
+- Validation을 통한 데이터 검증 처리
 
 ---
 
-## ✏️ 개선 예정
-- [ ] 게시글 검색 기능 추가  
-- [ ] 페이징 처리  
-- [ ] 파일 업로드 기능  
-- [ ] BCrypt를 이용한 비밀번호 암호화  
+## 📌 기술적 특징
+
+- Controller, Service, Mapper로 계층 분리
+- ModelMapper를 활용한 객체 매핑 자동화
+- Lombok을 활용한 코드 간소화
 
 ---
 
-## 🧑‍💻 개발자
-**Chandler Lee**  
-> Java 백엔드 개발 공부 중 👨‍💻  
-> Email: loookout97@gmail.com  
-> GitHub: https://github.com/heathcliff4736
+## 🚀 향후 개선 방향
 
----
+- Spring Security를 활용한 인증/인가 기능
+- 댓글 기능 추가
+- RESTful API로 리팩토링
+- JPA 학습 및 적용
+
+
+
+
