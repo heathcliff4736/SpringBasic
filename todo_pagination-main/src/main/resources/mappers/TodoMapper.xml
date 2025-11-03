@@ -41,7 +41,7 @@
 
     <select id="selectAll" resultType="com.ssg.todoservice.domain.TodoVO">
         <!--         MyBatis는 기본적으로 getXXX, setXXX 를 통해서 동작하므로 , #{skip}는 PageRequestDTO의 getSkip()를 호출한다. -->
-        select * from todo order by tno desc limit #{skip},#{size}
+        select * from tbl_todo order by tno desc limit #{skip},#{size}
 
     </select>
 
@@ -49,30 +49,30 @@
     <!--         MyBatis는 기본적으로 getXXX, setXXX 를 통해서 동작하므로 , #{skip}는 PageRequestDTO의 getSkip()를 호출한다. -->
 
     <select id="selectList" resultType="com.ssg.todoservice.domain.TodoVO">
-        SELECT * FROM todo
+        SELECT * FROM tbl_todo
         <include refid="search"/>
         ORDER BY tno DESC
         LIMIT #{skip, jdbcType=INTEGER}, #{size, jdbcType=INTEGER}
     </select>
 
     <select id="selectOne" resultType="com.ssg.todoservice.domain.TodoVO">
-        select * from todo where tno = #{tno}
+        select * from tbl_todo where tno = #{tno}
     </select>
 
     <insert id="insert">
-        insert into todo(title, dueDate, writer) values (#{title}, #{dueDate}, #{writer})
+        insert into tbl_todo(title, dueDate, writer) values (#{title}, #{dueDate}, #{writer})
     </insert>
 
     <delete id="delete">
-        delete from todo where tno = #{tno}
+        delete from tbl_todo where tno = #{tno}
     </delete>
 
     <update id="update" >
-        update todo set title = #{title}, dueDate = #{dueDate}, finished = #{finished} where tno = #{tno}
+        update tbl_todo set title = #{title}, dueDate = #{dueDate}, finished = #{finished} where tno = #{tno}
     </update>
 <!--    todo테이블의 전체 row의 개수를 반환-->
     <select id="getCount" resultType="int">
-        SELECT COUNT(tno) FROM todo
+        SELECT COUNT(tno) FROM tbl_todo
         <include refid="search"/>
     </select>
 
