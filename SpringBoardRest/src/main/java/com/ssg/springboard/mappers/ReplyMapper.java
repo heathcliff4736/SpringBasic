@@ -16,6 +16,6 @@ public interface ReplyMapper {
 
     Long deleteOne(Long rno);
 
-    List<ReplyVO> selectAllReply(@Param("cri") Criteria cri, @Param("bno") Long bno);
+    List<ReplyVO> getReplyList(@Param("cri") Criteria cri, @Param("bno") Long bno);
 
 }

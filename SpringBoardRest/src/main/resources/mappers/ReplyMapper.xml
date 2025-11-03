@@ -29,8 +29,10 @@
         WHERE rno = #{rno}
     </delete>
 
-    <!--<select id="selectAllReply" resultType="ReplyVO">
-        SELECT * FROM reply order by rno desc
-    </select>-->
+    <select id="getReplyList" resultType="ReplyVO">
+        SELECT * FROM reply
+        WHERE bno = #{bno} and rno > 0
+        limit #{cri.skip}, #{cri.amount}
+    </select>
 
 </mapper>

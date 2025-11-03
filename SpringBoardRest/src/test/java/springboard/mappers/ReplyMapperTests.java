@@ -1,5 +1,6 @@
 package springboard.mappers;
 
+import com.ssg.springboard.domain.Criteria;
 import com.ssg.springboard.domain.ReplyVO;
 import com.ssg.springboard.mappers.ReplyMapper;
 import lombok.extern.log4j.Log4j2;
@@ -54,4 +55,15 @@ public class ReplyMapperTests {
         long rno = 23L;
         log.info(replyMapper.deleteOne(rno));
     }
+
+    @Test
+    public void testSelectAll() {
+        Criteria cri = new Criteria();
+        // 1 10
+
+//        replyMapper.getReplyList(cri,1024L).forEach(replyVO -> log.info(replyVO));
+        replyMapper.getReplyList(cri,1L).forEach(replyVO -> log.info(replyVO));
+    }
+
+
 }
