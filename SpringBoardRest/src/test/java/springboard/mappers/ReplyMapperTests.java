@@ -42,7 +42,7 @@ public class ReplyMapperTests {
     @Test
     public void testUpdate() {
         ReplyVO replyVO = ReplyVO.builder()
-                .rno(2L)
+                .rno(22L)
                 .replyText("reply updated ...")
                 .build();
 
@@ -51,7 +51,7 @@ public class ReplyMapperTests {
 
     @Test
     public void testDelete() {
-        long rno = 24L;
+        long rno = 23L;
         log.info(replyMapper.deleteOne(rno));
     }
 }

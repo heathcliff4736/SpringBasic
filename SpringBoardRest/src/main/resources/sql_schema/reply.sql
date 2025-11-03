@@ -21,3 +21,12 @@ DESC reply;
 SELECT COUNT(*) FROM board;
 
 SELECT * FROM board order by bno desc;
+
+UPDATE reply SET
+    replyText = '업데이트 된 내용',
+        updateDate = now()
+WHERE rno = 23;
+
+SELECT * FROM reply order by rno desc ;
+
+use springexdb;
