@@ -10,8 +10,8 @@ CREATE TABLE reply(
 
 
 
-insert into reply (bno, replyText, replyer) VALUES (1,"댓글1","댓글 작성자1");
-insert into reply (bno, replyText, replyer) VALUES (1024,"1024번 글의 첫번째 댓글","댓글맨1");
+insert into reply (bno, replyText, replyer) VALUES (1,'댓글1','댓글 작성자1');
+insert into reply (bno, replyText, replyer) VALUES (1024,'1024번 글의 첫번째 댓글','댓글맨1');
 
 SELECT * FROM reply;
 

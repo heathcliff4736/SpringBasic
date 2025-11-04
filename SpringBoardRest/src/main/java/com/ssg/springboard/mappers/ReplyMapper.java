@@ -18,4 +18,6 @@ public interface ReplyMapper {
 
     List<ReplyVO> getReplyList(@Param("cri") Criteria cri, @Param("bno") Long bno);
 
+    int getTotal(Criteria criteria);
+
 }
