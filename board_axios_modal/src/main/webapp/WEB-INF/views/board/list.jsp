@@ -29,31 +29,31 @@
 
 <table class="table table-bordered table-hover">
     <thead>
-    <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>등록일</th>
-        <th>관리</th>
-    </tr>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>등록일</th>
+            <th>관리</th>
+        </tr>
     </thead>
     <tbody>
-
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>
-            <button class="btn btn-sm btn-secondary"
-                    onclick="">수정
-            </button>
-            <button class="btn btn-sm btn-danger"
-                    onclick="">삭제
-            </button>
-        </td>
-    </tr>
-
+        <c:forEach items="${list}" var = "board">
+            <tr>
+                <td>${board.bno}</td>
+                <td>${board.title}</td>
+                <td>${board.writer}</td>
+                <td>${board.regDate}</td>
+                <td>
+                    <button class="btn btn-sm btn-secondary"
+                            onclick="openEditModal(${board.bno})">수정
+                    </button>
+                    <button class="btn btn-sm btn-danger"
+                            onclick="deleteBoard(${board.bno})">삭제
+                    </button>
+                </td>
+            </tr>
+        </c:forEach>
     </tbody>
 </table>
 
@@ -104,13 +104,49 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script type="text/javascript">
-
-
     // 새 글 작성 모달 열기
+    const modalElement = document.getElementById('boardModal');
+    const modal = new bootstrap.Modal(modalElement);
 
+    function clearForm() {
+        document.getElementById('bno').value = '';
+        document.getElementById('title').value = '';
+        document.getElementById('content').value = '';
+        document.getElementById('writer').value = '';
+        document.getElementById('writer').removeAttribute('readonly');
+    }
+
+    function openCreateModal(){
+        clearForm();
+        document.getElementById('boardModalLabel').innerText = '새 글 작성';
+        modal.show();
+    }
 
     // 수정 모달 열기 – axios GET으로 JSON 받아오기
+    function openEditModal(bno){
+        clearForm();
+        document.getElementById('boardModalLabel').innerText = '글 수정';
 
+        axios.get('/api/board/'+bno).then(
+            function (response) {
+                const data = response.data;     // BoardVO JSON
+                if(!data) {
+                    alert('해당 글을 찾을 수 없습니다.');
+                    return;
+                }
+                document.getElementById('bno').value = data.bno;
+                document.getElementById('title').value = data.title;
+                document.getElementById('content').value = data.content;
+                document.getElementById('writer').value = data.writer;
+                document.getElementById('writer').setAttribute('readonly', 'readonly');
+            }
+        ).catch(
+            function (error){
+                console.error(error);
+                alert('글 수정을 진행하는 도중 오류가 발생하였습니다.');
+            }
+        );
+    }
 
     // 저장 버튼 (새 글인지 수정인지 구분)
 

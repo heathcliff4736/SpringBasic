@@ -3,8 +3,10 @@ package com.ssg.board_axios_modal.controller;
 import com.ssg.board_axios_modal.domain.BoardVO;
 import com.ssg.board_axios_modal.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,25 +28,68 @@ import java.util.List;
  *
  * */
 
-
+@RestController             // Controller + @ResponsBody (전부 JSON으로 통일)
+@RequestMapping("/api/board")
+@RequiredArgsConstructor
 public class BoardController {
 
-
+    private final BoardService boardService;
 
     // JSP 목록 페이지
+    @GetMapping
+    public ResponseEntity<List<BoardVO>> list(org.springframework.ui.Model model) {
+        List<BoardVO> list = boardService.getList();
+        model.addAttribute("list", list);
+
+        return ResponseEntity.ok(list);
+    }
 
 
     // ---------- JSON API (모달 + axios) ----------
 
     // 1. 글 한 건 조회 (모달에 값 채우기)
+    @GetMapping("/{bno}")
+    public ResponseEntity<BoardVO> getBoard(@PathVariable("bno") Integer bno) {
+        BoardVO boardVO = boardService.get(bno);
+
+        if(boardVO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(boardVO);
+    }
 
 
     // 2. 글 등록 (모달에서 등록)
+    @PostMapping
+    public ResponseEntity<BoardVO> createBoard(@RequestBody BoardVO boardVO) {
+        BoardVO saved = boardService.register(boardVO);
+
+        return ResponseEntity.ok(saved);
+    }
 
 
     // 3. 글 수정 (모달에서 수정)
-
+    @PutMapping("/{bno}")
+    public ResponseEntity<BoardVO> updateBoard(@RequestBody BoardVO boardVO, @PathVariable("bno") Integer bno) {
+        boardVO.setBno(bno);
+        boolean result = boardService.modify(boardVO);
+        if(!result) {
+            return ResponseEntity.notFound().build();
+        }
+        BoardVO updated = boardService.get(bno);
+        return ResponseEntity.ok(updated);
+    }
 
     // 4. 글 삭제
+    @DeleteMapping("/{bno}")
+    public ResponseEntity<BoardVO> deleteBoard(@PathVariable("bno") Integer bno) {
+        boolean result = boardService.remove(bno);
+        if(!result) {
+            return ResponseEntity.notFound().build();
+        }
+        BoardVO deleted = boardService.get(bno);
+        return ResponseEntity.ok(deleted);
+    }
+
 
 }
