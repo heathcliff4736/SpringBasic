@@ -79,10 +79,6 @@ dependencies {
 
     // 객체 매핑 라이브러리
     implementation 'org.modelmapper:modelmapper:3.0.0'             // DTO ↔ Entity 간 객체 변환 자동화 도구
-
-    // jackson-databind
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1'
 }
 
 test {
