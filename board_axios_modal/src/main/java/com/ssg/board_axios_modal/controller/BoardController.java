@@ -28,27 +28,28 @@ import java.util.List;
  *
  * */
 
-@RestController             // Controller + @ResponsBody (전부 JSON으로 통일)
-@RequestMapping("/api/board")
+//@RestController             // Controller + @ResponseBody (전부 JSON으로 통일)
+@Controller
+//@RequestMapping("/api/board")
 @RequiredArgsConstructor
 public class BoardController {
 
     private final BoardService boardService;
 
     // JSP 목록 페이지
-    @GetMapping
-    public ResponseEntity<List<BoardVO>> list(org.springframework.ui.Model model) {
+    @GetMapping("/board/list")
+    public String list(org.springframework.ui.Model model) {
         List<BoardVO> list = boardService.getList();
         model.addAttribute("list", list);
 
-        return ResponseEntity.ok(list);
+        return "/board/list";
     }
 
 
     // ---------- JSON API (모달 + axios) ----------
 
     // 1. 글 한 건 조회 (모달에 값 채우기)
-    @GetMapping("/{bno}")
+    @GetMapping("/api/board/{bno}")
     public ResponseEntity<BoardVO> getBoard(@PathVariable("bno") Integer bno) {
         BoardVO boardVO = boardService.get(bno);
 
@@ -60,7 +61,7 @@ public class BoardController {
 
 
     // 2. 글 등록 (모달에서 등록)
-    @PostMapping
+    @PostMapping("/api/board")
     public ResponseEntity<BoardVO> createBoard(@RequestBody BoardVO boardVO) {
         BoardVO saved = boardService.register(boardVO);
 
@@ -69,7 +70,7 @@ public class BoardController {
 
 
     // 3. 글 수정 (모달에서 수정)
-    @PutMapping("/{bno}")
+    @PutMapping("/api/board/{bno}")
     public ResponseEntity<BoardVO> updateBoard(@RequestBody BoardVO boardVO, @PathVariable("bno") Integer bno) {
         boardVO.setBno(bno);
         boolean result = boardService.modify(boardVO);
@@ -81,7 +82,7 @@ public class BoardController {
     }
 
     // 4. 글 삭제
-    @DeleteMapping("/{bno}")
+    @DeleteMapping("/api/board/{bno}")
     public ResponseEntity<BoardVO> deleteBoard(@PathVariable("bno") Integer bno) {
         boolean result = boardService.remove(bno);
         if(!result) {

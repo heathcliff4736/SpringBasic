@@ -29,31 +29,31 @@
 
 <table class="table table-bordered table-hover">
     <thead>
-        <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>등록일</th>
-            <th>관리</th>
-        </tr>
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>등록일</th>
+        <th>관리</th>
+    </tr>
     </thead>
     <tbody>
-        <c:forEach items="${list}" var = "board">
-            <tr>
-                <td>${board.bno}</td>
-                <td>${board.title}</td>
-                <td>${board.writer}</td>
-                <td>${board.regDate}</td>
-                <td>
-                    <button class="btn btn-sm btn-secondary"
-                            onclick="openEditModal(${board.bno})">수정
-                    </button>
-                    <button class="btn btn-sm btn-danger"
-                            onclick="deleteBoard(${board.bno})">삭제
-                    </button>
-                </td>
-            </tr>
-        </c:forEach>
+    <c:forEach items="${list}" var="board">
+        <tr data-bno="${board.bno}">
+            <td>${board.bno}</td>
+            <td>${board.title}</td>
+            <td>${board.writer}</td>
+            <td>${board.regDate}</td>
+            <td>
+                <button class="btn btn-sm btn-secondary"
+                        onclick="openEditModal(${board.bno})">수정
+                </button>
+                <button class="btn btn-sm btn-danger"
+                        onclick="deleteBoard(${board.bno})">삭제
+                </button>
+            </td>
+        </tr>
+    </c:forEach>
     </tbody>
 </table>
 
@@ -93,7 +93,7 @@
                 </button>
                 <button type="button"
                         class="btn btn-primary"
-                        onclick="">저장
+                        onclick="saveBoard()">저장
                 </button>
             </div>
         </div>
@@ -116,21 +116,21 @@
         document.getElementById('writer').removeAttribute('readonly');
     }
 
-    function openCreateModal(){
+    function openCreateModal() {
         clearForm();
         document.getElementById('boardModalLabel').innerText = '새 글 작성';
         modal.show();
     }
 
     // 수정 모달 열기 – axios GET으로 JSON 받아오기
-    function openEditModal(bno){
+    function openEditModal(bno) {
         clearForm();
         document.getElementById('boardModalLabel').innerText = '글 수정';
 
-        axios.get('/api/board/'+bno).then(
+        axios.get('/api/board/' + bno).then(
             function (response) {
                 const data = response.data;     // BoardVO JSON
-                if(!data) {
+                if (!data) {
                     alert('해당 글을 찾을 수 없습니다.');
                     return;
                 }
@@ -139,9 +139,10 @@
                 document.getElementById('content').value = data.content;
                 document.getElementById('writer').value = data.writer;
                 document.getElementById('writer').setAttribute('readonly', 'readonly');
+                modal.show();
             }
         ).catch(
-            function (error){
+            function (error) {
                 console.error(error);
                 alert('글 수정을 진행하는 도중 오류가 발생하였습니다.');
             }
@@ -149,14 +150,60 @@
     }
 
     // 저장 버튼 (새 글인지 수정인지 구분)
+    function saveBoard() {
+        const bno = document.getElementById('bno').value;
+        const title = document.getElementById('title').value;
+        const content = document.getElementById('content').value;
+        const writer = document.getElementById('writer').value;
 
+        const payload = {
+            title: title,
+            content: content,
+            writer: writer
+        };
 
-    // 새 글 작성(POST) vs 수정(PUT) 구분
+        // 새 글 작성(POST) vs 수정(PUT) 구분
+        if (!bno) {      // 저장 버튼 클릭시 새 글이면 POST, 수정이면 PUT
+            // 새 글 등록
+            axios.post('/api/board', payload).then(
+                function (response) {
+                    alert('등록완료');
+                    location.reload();
+                }
+            ).catch(
+                function (error) {
+                    console.error(error);
+                    alert('등록에 실패하였습니다.');
+                }
+            );
+        } else {
+            // PUT /api/board/{bno}
+            axios.put('/api/board/' + bno, payload).then(
+                function (response) {
+                    alert('수정 완료');
+                    location.reload();
+                }
+            )
+        }
 
-    // PUT /api/board/{bno}
-
+    }
 
     // 삭제
+    function deleteBoard(bno) {
+        if (!confirm('정말 삭제하시겠습니까?')) return;
+
+        axios.delete('/api/board/' + bno).then(
+            function (response) {
+                alert('삭제 완료');
+                location.reload();
+            }
+        ).catch(
+            function (error) {
+                console.error(error);
+                alert('삭제에 실패하였습니다.');
+            }
+        )
+    }
 
 </script>
 

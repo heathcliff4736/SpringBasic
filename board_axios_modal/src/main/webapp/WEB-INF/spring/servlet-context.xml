@@ -19,6 +19,6 @@
     </bean>
 
 
-    <mvc:resources mapping="/resources/**" location="classpath:/static/"/>
+<!--    <mvc:resources mapping="/resources/**" location="classpath:/static/"/>-->
 
 </beans>
